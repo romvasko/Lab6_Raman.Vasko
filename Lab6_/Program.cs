@@ -2,7 +2,7 @@
 
 try {
     Console.WriteLine(Lab6_Login.Check("ttttt","123456","123456"));
-    Console.WriteLine(Lab6_Login.Check("ttt  tt","22222","22222"));
+    Console.WriteLine(Lab6_Login.Check("ttttt","abcabc1","abcabc1"));
     //Console.WriteLine(Lab6_Login.Check("ttttt","11111","22222"));
 }
 catch (Exception ex) {
@@ -19,8 +19,15 @@ class Lab6_Login
     public static bool Check(string login, string pass, string passConf) 
     {
         if (login.Length >= 20 || login.Contains(" ")) { throw new WrongLoginException(); }
-        if (pass != passConf) {throw new WrongPasswordException();}
+        if (pass != passConf || pass.Contains(" ") ||
+            pass.Length > 20 || !IsNumberContains(pass)) {throw new WrongPasswordException();}
         return true;
+    }
+    static bool IsNumberContains(string input) {
+        foreach (char c in input)
+            if (Char.IsNumber(c))
+                return true;
+        return false;
     }
 }
 
